@@ -1,0 +1,12 @@
+# Isolate Local Python Virtual Environments
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Isolate Local Database Foundations (Data Security)
+providence_clinical.db
+
+# Isolate Local Vector Databases (HIPAA Compliance Safety)
+chroma_db/
+.chroma/
