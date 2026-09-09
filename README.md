@@ -6,6 +6,7 @@ An enterprise-grade, zero-cost AI analytics pipeline designed to process multi-s
 
 ## System Architecture & Data Flow
 
+```text
 [ Unstructured Raw Patient Data ]  (PDFs, Lab JSONs, EHR Texts)
                │
                ▼
@@ -24,14 +25,15 @@ An enterprise-grade, zero-cost AI analytics pipeline designed to process multi-s
                │
                ▼
 [ Secure Dashboard / LLM Response ] ──► Verified, Hallucination-Free Clinical Insights
+```
 
 ---
 
 ## Free & Open-Source Tech Stack
-* Data Engineering Core: SQL (SQLite Core), Python (Pandas, NumPy)
-* Vector Engine Store: ChromaDB running locally with native all-MiniLM-L6-v2 embeddings
-* Orchestration Framework: LangChain & LangChain-Ollama integration layers
-* Inference Engine Processing: Ollama running Meta Llama 3.2 1b foundation model locally
+* **Data Engineering Core:** SQL (SQLite Core), Python (Pandas, NumPy)
+* **Vector Engine Store:** ChromaDB running locally with native all-MiniLM-L6-v2 embeddings
+* **Orchestration Framework:** LangChain & LangChain-Ollama integration layers
+* **Inference Engine Processing:** Ollama running Meta Llama 3.2 1b foundation model locally
 
 ---
 
@@ -51,6 +53,6 @@ pip install pandas numpy chromadb langchain-ollama langchain-text-splitters
 ---
 
 ## Production Design Justifications (Interview Defense)
-* Zero-Cost Infrastructure: Avoids reliance on expensive external subscription APIs. The entire database, embedding matrix, and text generation cycles run locally on standard consumer-grade hardware.
-* Strict Healthcare Data Security: Sensitive clinical files, medical histories, and notes never cross the public internet, maintaining complete data privacy compliance within local firewalled network borders.
-* Hallucination Elimination: Leverages strict few-shot contextual grounding constraints. The LLM is restricted to reading only the context retrieved by our system, dropping factual errors to near zero.
+* **Zero-Cost Infrastructure:** Avoids reliance on expensive external subscription APIs. The entire database, embedding matrix, and text generation cycles run locally on standard consumer-grade hardware.
+* **Strict Healthcare Data Security:** Sensitive clinical files, medical histories, and notes never cross the public internet, maintaining complete data privacy compliance within local firewalled network borders.
+* **Hallucination Elimination:** Leverages strict few-shot contextual grounding constraints. The LLM is restricted to reading only the context retrieved by our system, dropping factual errors to near zero.
