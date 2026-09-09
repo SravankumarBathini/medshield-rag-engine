@@ -12,43 +12,33 @@ collection = chroma_client.get_collection(name="clinical_notes_collection", embe
 # 2. Define the Operational Query
 user_query = "What medication was prescribed to the patient presenting with acute chest pain?"
 print(f"? User Query: {user_query}")
-print("?? Searching local vector database for matching clinical context...")
 
-# 3. Retrieve and Flatten the Nested Vector Context Array Cleanly
+# 3. Retrieve and explicitly extract the first list of documents
 search_results = collection.query(query_texts=[user_query], n_results=2)
-# Slicing results['documents'][0] extracts the flat text string blocks cleanly
-retrieved_context = "\n".join(search_results['documents'][0])
+# Extract the first sub-list of document strings cleanly
+retrieved_chunks = search_results['documents'][0]
+retrieved_context = "\n".join(retrieved_chunks)
 
 print("?? Context successfully retrieved and flattened from ChromaDB.")
 
-# 4. Initialize the Modern, Non-Deprecated Local Ollama Engine
+# 4. Initialize the Local Ollama Engine
 llm = OllamaLLM(model="llama3.2:1b")
 
-# 5. Inject Structured Instructions into the Grounding Blueprint
+# 5. Deploy an Optimized, Punchy Prompt for 1B Models
 system_prompt = f"""
-You are an expert medical data analyst at Providence India. 
-Your core responsibility is to answer the user query based strictly on the provided clinical context.
+Context: {retrieved_context}
+Question: {user_query}
 
-RULES:
-1. Rely only on the clear facts mentioned in the context.
-2. If the context does not contain the answer, reply with: "I cannot find the answer in the provided records."
-3. Do not assume, extrapolate, or hallucinate any data points.
-
-[CLINICAL CONTEXT]:
-{retrieved_context}
-
-[USER QUERY]:
-{user_query}
-
-[ANALYTICAL RESPONSE]:
+Instruction: Answer the question using only the context provided above. Be short and direct.
+Answer:
 """
 
 print("?? Passing grounded data block to local Llama3.2 engine...")
 print("================== LLM GENERATED REPORT ==================\n")
 
-# 6. Generate the Safe, Hallucination-Free Response
+# 6. Generate the Clean Response
 response = llm.invoke(system_prompt)
 print(response)
 
 print("\n==========================================================")
-print("? Local inference cycle complete. Warnings eliminated and data safety maintained.")
+print("? Local inference cycle complete. Array formatting and prompt optimized.")
